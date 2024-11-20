@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct SwiftData_demoApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      TasksListView()
+        .modelContainer(for: Task.self)
     }
+  }
 }
