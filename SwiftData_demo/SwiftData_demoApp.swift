@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftData_demoApp: App {
   var body: some Scene {
     WindowGroup {
-      TasksListView()
+      ProjectsListView()
         .modelContainer(for: [Project.self, Task.self])
     }
   }
