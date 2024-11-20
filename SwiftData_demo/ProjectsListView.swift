@@ -27,9 +27,8 @@ struct ProjectsListView: View {
         } else {
           List {
             ForEach(projects) { project in
-              HStack {
+              NavigationLink(destination: TasksListView(project: project)) {
                 Text(project.name)
-                Spacer()
               }
             }
             .onDelete(perform: deleteProjects)

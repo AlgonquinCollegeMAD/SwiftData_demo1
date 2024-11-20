@@ -12,7 +12,7 @@ struct SwiftData_demoApp: App {
   var body: some Scene {
     WindowGroup {
       ProjectsListView()
-        .modelContainer(for: [Project.self, Task.self])
     }
+    .modelContainer(for: [Project.self, Task.self])
   }
 }

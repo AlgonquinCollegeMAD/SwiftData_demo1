@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct TasksListView: View {
-  @Query var tasks: [Task]
+  @Bindable var project: Project
   @Environment(\.modelContext) private var context
   
   @FocusState private var isFocused: Bool
@@ -18,7 +18,7 @@ struct TasksListView: View {
   var body: some View {
     NavigationStack {
       VStack {
-        if tasks.isEmpty {
+        if project.tasks.isEmpty {
           ContentUnavailableView {
             Label("No Tasks.", systemImage: "list.dash")
           } description: {
@@ -26,7 +26,7 @@ struct TasksListView: View {
           }
         } else {
           List {
-            ForEach(tasks) { task in
+            ForEach(project.tasks) { task in
               HStack {
                 Text(task.title)
                 Spacer()
@@ -61,12 +61,14 @@ struct TasksListView: View {
   private func addTask(title: String) {
     guard !title.isEmpty else { return }
     let newTask = Task(title: title)
+    newTask.project = project
+    project.tasks.append(newTask)
     context.insert(newTask)
     try? context.save()
   }
   
   private func deleteTasks(at offsets: IndexSet) {
-    let tasksToDelete = offsets.map { tasks[$0] }
+    let tasksToDelete = offsets.map { project.tasks[$0] }
     for task in tasksToDelete {
       context.delete(task)
     }
